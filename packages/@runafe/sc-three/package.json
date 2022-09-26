@@ -1,0 +1,19 @@
+{
+  "name": "@runafe/sc-three",
+  "version": "1.0.0",
+  "author": "huangxin",
+  "description": "runafe share",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {}
+}

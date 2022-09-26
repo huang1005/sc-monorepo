@@ -1,0 +1,21 @@
+{
+  "name": "@runafe/platform-share",
+  "version": "1.0.0",
+  "description": "runafe share",
+  "author": "wQueryLoveMm <1121292341@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "global.d.ts",
+    "packages"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {}
+}

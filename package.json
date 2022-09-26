@@ -1,0 +1,26 @@
+{
+  "name": "sc-twin",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@runafe/platform-share": "workspace:^1.0.0",
+    "@runafe/sc-three": "workspace:^1.0.0",
+    "lodash": "^4.17.21",
+    "three": "^0.144.0",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@types/three": "^0.144.0",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "@vitejs/plugin-vue-jsx": "^2.0.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0",
+    "vue-tsc": "^0.40.4"
+  }
+}
