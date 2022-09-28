@@ -1,19 +1,11 @@
-<script lang="tsx">
-import { ref, defineComponent } from "vue";
-import { get } from "@runafe/platform-share";
-import { useInit, useRender } from "@runafe/sc-three";
-const { useRenderlayout } = useRender();
-console.log(useRenderlayout);
-
-export default defineComponent({
-  name: "Layout",
-  setup() {
-    return () => <>{useRenderlayout()}</>;
-  },
-});
+<script setup lang="ts">
+import { ref, defineComponent } from 'vue'
+import scThree from '@runafe/sc-three'
 </script>
 
-<template>11</template>
+<template>
+  <sc-Three></sc-Three>
+</template>
 
 <style scoped>
 .read-the-docs {

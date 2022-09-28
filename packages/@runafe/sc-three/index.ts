@@ -1,1 +1,3 @@
-export * from "./src/init";
+import scThree from './render.vue'
+
+export default scThree;

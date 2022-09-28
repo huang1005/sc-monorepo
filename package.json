@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@runafe/platform-share": "workspace:^1.0.0",
+    "@runafe/sc-style": "workspace:^1.0.0",
     "@runafe/sc-three": "workspace:^1.0.0",
     "lodash": "^4.17.21",
+    "sass": "^1.55.0",
     "three": "^0.144.0",
+    "tween": "^0.9.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

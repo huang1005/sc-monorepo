@@ -1,0 +1,10 @@
+$namespace: 'sc' !default;
+$common-separator: '-';
+$element-separator: '__';
+$modifier-separator: '--';
+$state-prefix: 'is-';
+$project-map: (
+  d: designer,
+  r: render,
+  m: scm,
+);

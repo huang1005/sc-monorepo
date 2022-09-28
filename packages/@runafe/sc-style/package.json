@@ -1,0 +1,15 @@
+{
+  "name": "@runafe/sc-style",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scss/mixins.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "sass": "^1.55.0"
+  }
+}

@@ -15,11 +15,47 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
 
-## install 
-pnpm install
-pnpm -F <package_selector> <command> pnpm -F sc-twin add loadsh
-packageA中引用packageB
-pnpm -F @packages/components add @packages/utils@*
-## dev
-pnpm -F sc-twin dev 
+## install 全局安装
 
+pnpm install
+
+## install 局部安装
+
+pnpm -F <package_selector> <command> pnpm -F sc-twin add loadsh
+
+## dev
+
+pnpm -F sc-twin dev
+
+## scss
+
+@use "@runafe/sc-style" as _;
+使用 as_，那么这一模块就处于全局命名空间。
+
+```
+corners.scss
+$radius: 3px;
+@mixin rounded {
+    border-radius: $radius;
+}
+
+index.scss
+@use "src/corners" as *;
+.button {
+    @include rounded;
+    padding: 5px + $radius;
+}
+```
+## Vite 单个项目静态资源文件导入
+``` 
+正确
+通过vite 提供import.meta.url 加载器加载地址
+const url = new URL('../assets/venice_sunset_1k.hdr', import.meta.url).href
+scene.environment = new RGBELoader().load(url, () => {})
+错误
+scene.environment = new RGBELoader().load('../assets/venice_sunset_1k.hdr', () => {}) 文件引入404
+
+```
+## monorepo package项目引入问题
+问题：packageA 加载packageB 局部安装过程中出现包找不到情况 
+方法：将所以包 装在根目录下

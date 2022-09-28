@@ -15,5 +15,8 @@
   "publishConfig": {
     "access": "public"
   },
+  "peerDependencies": {
+    "sass": "^1.55.0"
+  },
   "scripts": {}
 }
