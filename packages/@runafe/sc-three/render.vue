@@ -8,9 +8,7 @@
 <script setup lang="ts">
 import * as THREE from 'three'
 import TWEEN from 'tween'
-import { useInit } from './src/init/useInit'
-import { useRender } from './src/init/useRender'
-import { useLoadModel } from './src/init/useLoadModel'
+import { useInit, useRender, useLoadModel } from './src/init'
 
 import './src/style/index.scss'
 import { ref, onMounted, defineComponent } from 'vue'

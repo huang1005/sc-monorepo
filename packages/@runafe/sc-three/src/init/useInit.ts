@@ -1,6 +1,5 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-import { Mesh } from 'three/src/Three'
 import { addSky } from './useSky'
 import { get } from '@runafe/platform-share'
 import { model } from '../setting/Model'

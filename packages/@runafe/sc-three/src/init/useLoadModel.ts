@@ -9,8 +9,6 @@ let loadedModels: any = {}
 function loadGltfModel({ THREE, scene, camera, control, app }: any) {
   const loader = new GLTFLoader()
   const url = new URL('../assets/station.glb', import.meta.url).href
-  console.log(url)
-
   loading.value = true
   loader.load(
     url,

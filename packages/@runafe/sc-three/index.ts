@@ -1,3 +1,5 @@
-import scThree from './render.vue'
+export * from './src/hooks'
 
-export default scThree;
+import Viewer3DUtils, { Views } from './src/utils/Viewer3DUtils'
+
+export { Viewer3DUtils, Views }

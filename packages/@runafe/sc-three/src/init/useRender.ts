@@ -16,7 +16,6 @@ function initRender({
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 2
   renderer.shadowMap.enabled = true
-  console.log(container)
 
   container && container.appendChild(renderer.domElement)
 
