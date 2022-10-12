@@ -3,6 +3,19 @@ import { ref, onMounted } from 'vue'
 import { useInit, Views, Viewer3DUtils } from '@runafe/sc-three'
 import { batchEntity } from 'packages/@runafe/sc-three/types'
 import * as THREE from 'three'
+import { insHttp } from '@/api'
+
+console.log(insHttp)
+insHttp
+  .get({
+    url: '/datapage/getRightTop',
+    data: {},
+  })
+  .then((res) => {
+    if (res.resultCode == 0) {
+      
+    }
+  })
 
 const threeRef = ref()
 const { useThree, useLoadGLTF } = useInit()
@@ -46,7 +59,6 @@ const station = async ({ threeBase }: batchEntity) => {
   const eye = new THREE.Vector3()
   const look = new THREE.Vector3()
   threeBase.camera.position.set(-214.59, 229.8, 96.3)
-  console.log(Viewer3DUtils)
 
   Viewer3DUtils.getCameraPositionByObjectUuids(
     threeBase.scene,

@@ -1,0 +1,16 @@
+{
+  "name": "@runafe/sc-http",
+  "version": "1.0.0",
+  "author": "huangxin",
+  "description": "runafe share",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {}
+}

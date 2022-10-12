@@ -12,10 +12,10 @@
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
-    "skipLibCheck": true
-  },
-  "paths": {
-    "@/*": ["packages/sc-three/src/*"]
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["packages/sc-twin/src/*"]
+    }
   },
   "typeRoots": ["./node_modules/@types/", "./types"],
 

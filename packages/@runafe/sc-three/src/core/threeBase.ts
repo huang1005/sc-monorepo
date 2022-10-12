@@ -25,9 +25,7 @@ export default class ThreeBase {
     scene.background = new THREE.Color(0x06090d)
     const url = new URL('../assets/venice_sunset_1k.hdr', import.meta.url).href
 
-    scene.environment = new RGBELoader().load(url, (res) => {
-      console.log(res)
-    })
+    scene.environment = new RGBELoader().load(url, (res) => {})
     scene.environment.mapping = THREE.EquirectangularReflectionMapping
     scene.updateMatrixWorld(true)
     return scene
