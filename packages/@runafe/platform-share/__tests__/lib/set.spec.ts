@@ -1,4 +1,4 @@
-import { set } from '../../';
+import { set } from '../..';
 
 describe('set', () => {
   it('set array is ok', () => {

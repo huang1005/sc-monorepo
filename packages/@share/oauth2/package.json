@@ -1,0 +1,7 @@
+{
+  "name": "@runafe/platform-oauth2",
+  "main": "index.ts",
+  "dependencies": {
+    "js-base64": "^3.7.2"
+  }
+}

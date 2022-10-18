@@ -1,4 +1,4 @@
-import { SetupAxios } from '../../';
+import { SetupAxios } from '../..';
 
 describe('get', () => {
   const inter = SetupAxios.interParam;

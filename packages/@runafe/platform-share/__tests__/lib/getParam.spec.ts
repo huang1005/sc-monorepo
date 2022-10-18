@@ -1,4 +1,4 @@
-import { getParam } from '../../';
+import { getParam } from '../..';
 
 interface param {
   a: string;

@@ -1,0 +1,5 @@
+{
+  "name": "@ld/api",
+  "private": true,
+  "main": "index.ts"
+}

@@ -1,4 +1,4 @@
-import { get, isFunction } from '../../';
+import { get, isFunction } from '../..';
 
 describe('get', () => {
   const obj = {

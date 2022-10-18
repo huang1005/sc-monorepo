@@ -1,4 +1,4 @@
-import { isObject, isEmptyObject } from '../../';
+import { isObject, isEmptyObject } from '../..';
 
 describe('type asserts', () => {
   it('isObject is ok', () => {

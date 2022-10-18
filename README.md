@@ -59,3 +59,17 @@ scene.environment = new RGBELoader().load('../assets/venice_sunset_1k.hdr', () =
 ## monorepo package项目引入问题
 问题：packageA 加载packageB 局部安装过程中出现包找不到情况 
 方法：将所以包 装在根目录下
+
+## element-admin 集成问题
+```
+问题：
+type": "module" which defines all .js files in that package scope as ES modules.
+Instead rename .eslintrc.js to end in .cjs, change the requiring code to use import(), or remove "type": "module"
+原因： 设置package.json type": "module" 模块化方案为esm 不支持支持commonjs 
+方法：
+需设置文件后缀为cjs 或者 删除 "type": "module"配置
+```
+
+```
+$ pnpm -F admin exec eslint . --fix 格式化文件
+```

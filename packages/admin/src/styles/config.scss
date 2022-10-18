@@ -1,0 +1,11 @@
+// 命名空间
+$namespace: v;
+// el命名空间
+$elNamespace: el;
+
+@function genPrefix($n, $prefix: false) {
+  @if ($prefix) {
+    @return #{$prefix}-#{$n};
+  }
+  @return #{$namespace}-#{$n};
+}
