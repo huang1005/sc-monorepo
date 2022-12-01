@@ -1,5 +1,5 @@
 import http, { genHandleFunc } from 'sc-http/fetch';
-import type { loginType } from '@ld/model';
+import type { loginType } from '@wd/model';
 
 const PREFIX = '@@/idm-auth@@'.replace(/@/g, '');
 

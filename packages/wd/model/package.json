@@ -1,5 +1,5 @@
 {
-  "name": "@ld/api",
+  "name": "@wd/model",
   "private": true,
   "main": "index.ts"
 }

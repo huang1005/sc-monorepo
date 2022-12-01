@@ -1,3 +1,3 @@
-import Setting from './src/Setting.vue'
+import Setting from './src/Setting.vue';
 
-export { Setting }
+export { Setting };

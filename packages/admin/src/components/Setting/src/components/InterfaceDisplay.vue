@@ -1,105 +1,105 @@
 <script setup lang="ts">
-import { ElSwitch } from 'element-plus'
-import { useI18n } from '@/hooks/web/useI18n'
-import { useAppStore } from '@/store/modules/app'
-import { computed, ref, watch } from 'vue'
-import { useDesign } from '@/hooks/web/useDesign'
+import { ElSwitch } from 'element-plus';
+import { useI18n } from '@/hooks/web/useI18n';
+import { useAppStore } from '@/store/modules/app';
+import { computed, ref, watch } from 'vue';
+import { useDesign } from '@/hooks/web/useDesign';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('interface-display')
+const prefixCls = getPrefixCls('interface-display');
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
-const { t } = useI18n()
+const { t } = useI18n();
 
 // 面包屑
-const breadcrumb = ref(appStore.getBreadcrumb)
+const breadcrumb = ref(appStore.getBreadcrumb);
 
 const breadcrumbChange = (show: boolean) => {
-  appStore.setBreadcrumb(show)
-}
+  appStore.setBreadcrumb(show);
+};
 
 // 面包屑图标
-const breadcrumbIcon = ref(appStore.getBreadcrumbIcon)
+const breadcrumbIcon = ref(appStore.getBreadcrumbIcon);
 
 const breadcrumbIconChange = (show: boolean) => {
-  appStore.setBreadcrumbIcon(show)
-}
+  appStore.setBreadcrumbIcon(show);
+};
 
 // 折叠图标
-const hamburger = ref(appStore.getHamburger)
+const hamburger = ref(appStore.getHamburger);
 
 const hamburgerChange = (show: boolean) => {
-  appStore.setHamburger(show)
-}
+  appStore.setHamburger(show);
+};
 
 // 全屏图标
-const screenfull = ref(appStore.getScreenfull)
+const screenfull = ref(appStore.getScreenfull);
 
 const screenfullChange = (show: boolean) => {
-  appStore.setScreenfull(show)
-}
+  appStore.setScreenfull(show);
+};
 
 // 尺寸图标
-const size = ref(appStore.getSize)
+const size = ref(appStore.getSize);
 
 const sizeChange = (show: boolean) => {
-  appStore.setSize(show)
-}
+  appStore.setSize(show);
+};
 
 // 多语言图标
-const locale = ref(appStore.getLocale)
+const locale = ref(appStore.getLocale);
 
 const localeChange = (show: boolean) => {
-  appStore.setLocale(show)
-}
+  appStore.setLocale(show);
+};
 
 // 标签页
-const tagsView = ref(appStore.getTagsView)
+const tagsView = ref(appStore.getTagsView);
 
 const tagsViewChange = (show: boolean) => {
-  appStore.setTagsView(show)
-}
+  appStore.setTagsView(show);
+};
 
 // logo
-const logo = ref(appStore.getLogo)
+const logo = ref(appStore.getLogo);
 
 const logoChange = (show: boolean) => {
-  appStore.setLogo(show)
-}
+  appStore.setLogo(show);
+};
 
 // 固定头部
-const fixedHeader = ref(appStore.getFixedHeader)
+const fixedHeader = ref(appStore.getFixedHeader);
 
 const fixedHeaderChange = (show: boolean) => {
-  appStore.setFixedHeader(show)
-}
+  appStore.setFixedHeader(show);
+};
 
 // 页脚
-const footer = ref(appStore.getFooter)
+const footer = ref(appStore.getFooter);
 
 const footerChange = (show: boolean) => {
-  appStore.setFooter(show)
-}
+  appStore.setFooter(show);
+};
 
 // 灰色模式
-const greyMode = ref(appStore.getGreyMode)
+const greyMode = ref(appStore.getGreyMode);
 
 const greyModeChange = (show: boolean) => {
-  appStore.setGreyMode(show)
-}
+  appStore.setGreyMode(show);
+};
 
-const layout = computed(() => appStore.getLayout)
+const layout = computed(() => appStore.getLayout);
 
 watch(
   () => layout.value,
-  (n) => {
+  n => {
     if (n === 'top') {
-      appStore.setCollapse(false)
+      appStore.setCollapse(false);
     }
   }
-)
+);
 </script>
 
 <template>

@@ -1,69 +1,75 @@
 <script setup lang="ts">
-import { ref, unref, computed, watch } from 'vue'
-import { ElInput } from 'element-plus'
-import { propTypes } from '@/utils/propTypes'
-import { useConfigGlobal } from '@/hooks/web/useConfigGlobal'
-import { zxcvbn } from '@zxcvbn-ts/core'
-import type { ZxcvbnResult } from '@zxcvbn-ts/core'
-import { useDesign } from '@/hooks/web/useDesign'
+import { ref, unref, computed, watch } from 'vue';
+import { ElInput } from 'element-plus';
+import { propTypes } from '@/utils/propTypes';
+import { useConfigGlobal } from '@/hooks/web/useConfigGlobal';
+import { zxcvbn } from '@zxcvbn-ts/core';
+import type { ZxcvbnResult } from '@zxcvbn-ts/core';
+import { useDesign } from '@/hooks/web/useDesign';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('input-password')
+const prefixCls = getPrefixCls('input-password');
 
 const props = defineProps({
   // 是否显示密码强度
   strength: propTypes.bool.def(false),
-  modelValue: propTypes.string.def('')
-})
+  modelValue: propTypes.string.def(''),
+});
 
 watch(
   () => props.modelValue,
   (val: string) => {
-    if (val === unref(valueRef)) return
-    valueRef.value = val
+    if (val === unref(valueRef)) return;
+    valueRef.value = val;
   }
-)
+);
 
-const { configGlobal } = useConfigGlobal()
+const { configGlobal } = useConfigGlobal();
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 // 设置input的type属性
-const textType = ref<'password' | 'text'>('password')
+const textType = ref<'password' | 'text'>('password');
 
 const changeTextType = () => {
-  textType.value = unref(textType) === 'text' ? 'password' : 'text'
-}
+  textType.value = unref(textType) === 'text' ? 'password' : 'text';
+};
 
 // 输入框的值
-const valueRef = ref(props.modelValue)
+const valueRef = ref(props.modelValue);
 
 // 监听
 watch(
   () => valueRef.value,
   (val: string) => {
-    emit('update:modelValue', val)
+    emit('update:modelValue', val);
   }
-)
+);
 
 // 获取密码强度
 const getPasswordStrength = computed(() => {
-  const value = unref(valueRef)
-  const zxcvbnRef = zxcvbn(unref(valueRef)) as ZxcvbnResult
-  return value ? zxcvbnRef.score : -1
-})
+  const value = unref(valueRef);
+  const zxcvbnRef = zxcvbn(unref(valueRef)) as ZxcvbnResult;
+  return value ? zxcvbnRef.score : -1;
+});
 
 const getIconName = computed(() =>
-  unref(textType) === 'password' ? 'ant-design:eye-invisible-outlined' : 'ant-design:eye-outlined'
-)
+  unref(textType) === 'password'
+    ? 'ant-design:eye-invisible-outlined'
+    : 'ant-design:eye-outlined'
+);
 </script>
 
 <template>
   <div :class="[prefixCls, `${prefixCls}--${configGlobal?.size}`]">
     <ElInput v-bind="$attrs" v-model="valueRef" :type="textType">
       <template #suffix>
-        <Icon class="el-input__icon cursor-pointer" :icon="getIconName" @click="changeTextType" />
+        <Icon
+          class="el-input__icon cursor-pointer"
+          :icon="getIconName"
+          @click="changeTextType"
+        />
       </template>
     </ElInput>
     <div
@@ -71,7 +77,10 @@ const getIconName = computed(() =>
       :class="`${prefixCls}__bar`"
       class="relative h-6px mt-10px mb-6px mr-auto ml-auto"
     >
-      <div :class="`${prefixCls}__bar--fill`" :data-score="getPasswordStrength"></div>
+      <div
+        :class="`${prefixCls}__bar--fill`"
+        :data-score="getPasswordStrength"
+      ></div>
     </div>
   </div>
 </template>

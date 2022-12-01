@@ -1,35 +1,38 @@
 <script setup lang="ts">
-import { computed, unref } from 'vue'
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
-import { useLocaleStore } from '@/store/modules/locale'
-import { useLocale } from '@/hooks/web/useLocale'
-import { propTypes } from '@/utils/propTypes'
-import { useDesign } from '@/hooks/web/useDesign'
+import { computed, unref } from 'vue';
+import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
+import { useLocaleStore } from '@/store/modules/locale';
+import { useLocale } from '@/hooks/web/useLocale';
+import { propTypes } from '@/utils/propTypes';
+import { useDesign } from '@/hooks/web/useDesign';
+import { Icon } from '@/components/Icon';
+import color from 'element-plus/es/components/color-picker/src/color';
+import { LocaleType } from 'share';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('locale-dropdown')
+const prefixCls = getPrefixCls('locale-dropdown');
 
 defineProps({
-  color: propTypes.string.def('')
-})
+  color: propTypes.string.def(''),
+});
 
-const localeStore = useLocaleStore()
+const localeStore = useLocaleStore();
 
-const langMap = computed(() => localeStore.getLocaleMap)
+const langMap = computed(() => localeStore.getLocaleMap);
 
-const currentLang = computed(() => localeStore.getCurrentLocale)
+const currentLang = computed(() => localeStore.getCurrentLocale);
 
 const setLang = (lang: LocaleType) => {
-  if (lang === unref(currentLang).lang) return
+  if (lang === unref(currentLang).lang) return;
   // 需要重新加载页面让整个语言多初始化
-  window.location.reload()
+  window.location.reload();
   localeStore.setCurrentLocale({
-    lang
-  })
-  const { changeLocale } = useLocale()
-  changeLocale(lang)
-}
+    lang,
+  });
+  const { changeLocale } = useLocale();
+  changeLocale(lang);
+};
 </script>
 
 <template>
@@ -43,7 +46,11 @@ const setLang = (lang: LocaleType) => {
     />
     <template #dropdown>
       <ElDropdownMenu>
-        <ElDropdownItem v-for="item in langMap" :key="item.lang" :command="item.lang">
+        <ElDropdownItem
+          v-for="item in langMap"
+          :key="item.lang"
+          :command="item.lang"
+        >
           {{ item.name }}
         </ElDropdownItem>
       </ElDropdownMenu>

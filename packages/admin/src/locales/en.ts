@@ -39,13 +39,13 @@ export default {
     delOk: 'OK',
     delCancel: 'Cancel',
     delNoData: 'Please select the data to delete',
-    delSuccess: 'Deleted successfully'
+    delSuccess: 'Deleted successfully',
   },
   error: {
     noPermission: `Sorry, you don't have permission to access this page.`,
     pageError: 'Sorry, the page you visited does not exist.',
     networkError: 'Sorry, the server reported an error.',
-    returnToHome: 'Return to home'
+    returnToHome: 'Return to home',
   },
   setting: {
     projectSetting: 'Project setting',
@@ -70,12 +70,12 @@ export default {
     copy: 'Copy',
     clearAndReset: 'Clear cache and reset',
     copySuccess: 'Copy success',
-    footer: 'Footer'
+    footer: 'Footer',
   },
   size: {
     default: 'Default',
     large: 'Large',
-    small: 'Small'
+    small: 'Small',
   },
   login: {
     welcome: 'Welcome to the system',
@@ -87,7 +87,7 @@ export default {
     remember: 'Remember me',
     forgetPassword: 'Forget password',
     usernamePlaceholder: 'username is admin or test',
-    passwordPlaceholder: 'password is admin or test'
+    passwordPlaceholder: 'password is admin or test',
   },
   router: {
     login: 'Login',
@@ -130,7 +130,7 @@ export default {
     authorization: 'Authorization',
     user: 'User management',
     role: 'Role management',
-    document: 'Document'
+    document: 'Document',
   },
   analysis: {
     newUser: 'New user',
@@ -166,7 +166,7 @@ export default {
     thursday: 'Thursday',
     friday: 'Friday',
     saturday: 'Saturday',
-    sunday: 'Sunday'
+    sunday: 'Sunday',
   },
   workplace: {
     goodMorning: 'Good morning',
@@ -189,7 +189,7 @@ export default {
     dynamic: 'Dynamic',
     push: 'push',
     pushCode: 'Archer push code to Github',
-    follow: 'Follow'
+    follow: 'Follow',
   },
   formDemo: {
     input: 'Input',
@@ -247,13 +247,13 @@ export default {
     set: 'Set',
     subitem: 'Subitem',
     formValidation: 'Form validation',
-    verifyReset: 'Verify reset'
+    verifyReset: 'Verify reset',
   },
   guideDemo: {
     guide: 'Guide',
     start: 'Start',
     message:
-      'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js'
+      'The guide page is very useful for some people who enter the project for the first time. You can briefly introduce the functions of the project. The boot page is based on intro js',
   },
   iconDemo: {
     icon: 'Icon',
@@ -262,12 +262,12 @@ export default {
     recommendedUse: 'Recommended use',
     recommendeDes:
       'Iconify component basically contains all icons. You can query any icon you want. And packaging will only package the icons used.',
-    accessAddress: 'Access address'
+    accessAddress: 'Access address',
   },
   echartDemo: {
     echart: 'Echart',
     echartDes:
-      'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.'
+      'Based on the secondary packaging components of eckarts, the width is adaptive. The corresponding chart can be displayed by passing in the options and height attributes.',
   },
   countToDemo: {
     countTo: 'CountTo',
@@ -281,13 +281,13 @@ export default {
     startVal: 'Start val',
     start: 'Start',
     pause: 'Pause',
-    resume: 'Resume'
+    resume: 'Resume',
   },
   watermarkDemo: {
     watermark: 'Watermark',
     createdWatermark: 'Created watermark',
     clearWatermark: 'Clear watermark',
-    resetWatermark: 'Reset watermark'
+    resetWatermark: 'Reset watermark',
   },
   qrcodeDemo: {
     qrcode: 'Qrcode',
@@ -300,21 +300,21 @@ export default {
     invalid: 'Invalid',
     logoConfig: 'Logo config',
     logoStyle: 'Logo style',
-    size: 'size config'
+    size: 'size config',
   },
   highlightDemo: {
     highlight: 'Highlight',
     message: 'The best time to plant a tree is ten years ago, followed by now.',
     keys1: 'ten years ago',
-    keys2: 'now'
+    keys2: 'now',
   },
   infotipDemo: {
     infotip: 'Infotip',
     infotipDes: 'Secondary packaging of components based on Highlight',
-    title: 'matters needing attention'
+    title: 'matters needing attention',
   },
   levelDemo: {
-    menu: 'Multi level menu cache'
+    menu: 'Multi level menu cache',
   },
   searchDemo: {
     search: 'Search',
@@ -330,7 +330,7 @@ export default {
     position: 'position',
     left: 'left',
     center: 'center',
-    right: 'right'
+    right: 'right',
   },
   tableDemo: {
     table: 'Table',
@@ -357,32 +357,34 @@ export default {
     showExpandedRows: 'Show expanded rows',
     hiddenExpandedRows: 'Hidden expanded rows',
     changeTitle: 'Change title',
-    header: 'Header'
+    header: 'Header',
   },
   richText: {
     richText: 'Rich text',
-    richTextDes: 'Secondary packaging based on wangeditor'
+    richTextDes: 'Secondary packaging based on wangeditor',
   },
   dialogDemo: {
     dialog: 'Dialog',
     dialogDes: 'Secondary packaging of Dialog components based on ElementPlus',
     open: 'Open',
-    close: 'Close'
+    close: 'Close',
   },
   imageViewerDemo: {
     open: 'Open',
     imageViewer: 'Image viewer',
-    imageViewerDes: 'Secondary packaging of ImageViewer components based on ElementPlus'
+    imageViewerDes:
+      'Secondary packaging of ImageViewer components based on ElementPlus',
   },
   descriptionsDemo: {
     descriptions: 'Descriptions',
-    descriptionsDes: 'Secondary packaging of Descriptions components based on ElementPlus',
+    descriptionsDes:
+      'Secondary packaging of Descriptions components based on ElementPlus',
     username: 'Username',
     nickName: 'NickName',
     phone: 'Phone',
     email: 'Email',
     addr: 'Address',
-    form: 'Combined with Form component'
+    form: 'Combined with Form component',
   },
   exampleDemo: {
     title: 'Title',
@@ -396,7 +398,7 @@ export default {
     important: 'Important',
     content: 'Content',
     save: 'Save',
-    detail: 'Detail'
+    detail: 'Detail',
   },
   userDemo: {
     title: 'User management',
@@ -409,6 +411,6 @@ export default {
     role: 'Role',
     remark: 'Remark',
     remarkMessage1: 'Back end control routing permission',
-    remarkMessage2: 'Front end control routing permission'
-  }
-}
+    remarkMessage2: 'Front end control routing permission',
+  },
+};

@@ -1,3 +1,3 @@
-import TabMenu from './src/TabMenu.vue'
+import TabMenu from './src/TabMenu.vue';
 
-export { TabMenu }
+export { TabMenu };

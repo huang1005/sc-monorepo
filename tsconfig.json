@@ -14,16 +14,11 @@
     "baseUrl": ".",
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["packages/admin/src/*"],
+      "@/*": ["packages/admin/src/*"]
     }
   },
   "typeRoots": ["./node_modules/@types/", "./types"],
 
-  "include": [
-    "packages/**/*.ts",
-    "packages/**/*.d.ts",
-    "packages/**/*.tsx",
-    "packages/**/*.vue"
-  ],
+  "include": ["packages/**/*", "mock/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

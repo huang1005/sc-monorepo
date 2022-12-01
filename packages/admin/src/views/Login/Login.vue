@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { LoginForm } from './components'
-import { ThemeSwitch } from '@/components/ThemeSwitch'
-import { LocaleDropdown } from '@/components/LocaleDropdown'
-import { useI18n } from '@/hooks/web/useI18n'
-import { underlineToHump } from '@/utils'
-import { useAppStore } from '@/store/modules/app'
-import { useDesign } from '@/hooks/web/useDesign'
+import { LoginForm } from './components';
+import { ThemeSwitch } from '@/components/ThemeSwitch';
+import { LocaleDropdown } from '@/components/LocaleDropdown';
+import { useI18n } from '@/hooks/web/useI18n';
+import { underlineToHump } from '@/utils';
+import { useAppStore } from '@/store/modules/app';
+import { useDesign } from '@/hooks/web/useDesign';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('login')
+const prefixCls = getPrefixCls('login');
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
-const { t } = useI18n()
+const { t } = useI18n();
 </script>
 
 <template>
@@ -26,8 +26,14 @@ const { t } = useI18n()
         :class="`${prefixCls}__left flex-1 bg-gray-500 bg-opacity-20 relative p-30px <xl:hidden`"
       >
         <div class="flex items-center relative text-white">
-          <img src="@/assets/imgs/logo.png" alt="" class="w-48px h-48px mr-10px" />
-          <span class="text-20px font-bold">{{ underlineToHump(appStore.getTitle) }}</span>
+          <img
+            src="@/assets/imgs/logo.png"
+            alt=""
+            class="w-48px h-48px mr-10px"
+          />
+          <span class="text-20px font-bold">{{
+            underlineToHump(appStore.getTitle)
+          }}</span>
         </div>
         <div class="flex justify-center items-center h-[calc(100%-60px)]">
           <TransitionGroup
@@ -35,8 +41,15 @@ const { t } = useI18n()
             tag="div"
             enter-active-class="animate__animated animate__bounceInLeft"
           >
-            <img src="@/assets/svgs/login-box-bg.svg" key="1" alt="" class="w-350px" />
-            <div class="text-3xl text-white" key="2">{{ t('login.welcome') }}</div>
+            <img
+              src="@/assets/svgs/login-box-bg.svg"
+              key="1"
+              alt=""
+              class="w-350px"
+            />
+            <div class="text-3xl text-white" key="2">
+              {{ t('login.welcome') }}
+            </div>
             <div class="mt-5 font-normal text-white text-14px" key="3">
               {{ t('login.message') }}
             </div>
@@ -44,10 +57,18 @@ const { t } = useI18n()
         </div>
       </div>
       <div class="flex-1 p-30px <sm:p-10px dark:bg-v-dark relative">
-        <div class="flex justify-between items-center text-white @2xl:justify-end @xl:justify-end">
+        <div
+          class="flex justify-between items-center text-white @2xl:justify-end @xl:justify-end"
+        >
           <div class="flex items-center @2xl:hidden @xl:hidden">
-            <img src="@/assets/imgs/logo.png" alt="" class="w-48px h-48px mr-10px" />
-            <span class="text-20px font-bold">{{ underlineToHump(appStore.getTitle) }}</span>
+            <img
+              src="@/assets/imgs/logo.png"
+              alt=""
+              class="w-48px h-48px mr-10px"
+            />
+            <span class="text-20px font-bold">{{
+              underlineToHump(appStore.getTitle)
+            }}</span>
           </div>
 
           <div class="flex justify-end items-center space-x-10px">
@@ -55,11 +76,16 @@ const { t } = useI18n()
             <LocaleDropdown class="<xl:text-white dark:text-white" />
           </div>
         </div>
-        <Transition appear enter-active-class="animate__animated animate__bounceInRight">
+        <Transition
+          appear
+          enter-active-class="animate__animated animate__bounceInRight"
+        >
           <div
             class="h-full flex items-center m-auto w-[100%] @2xl:max-w-500px @xl:max-w-500px @md:max-w-500px @lg:max-w-500px"
           >
-            <LoginForm class="p-20px h-auto m-auto <xl:(rounded-3xl light:bg-white)" />
+            <LoginForm
+              class="p-20px h-auto m-auto <xl:(rounded-3xl light:bg-white)"
+            />
           </div>
         </Transition>
       </div>

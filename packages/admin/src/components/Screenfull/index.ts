@@ -1,3 +1,3 @@
-import Screenfull from './src/Screenfull.vue'
+import Screenfull from './src/Screenfull.vue';
 
-export { Screenfull }
+export { Screenfull };

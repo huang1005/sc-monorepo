@@ -1,14 +1,18 @@
-import { defineStore } from 'pinia'
-import { asyncRouterMap, constantRouterMap } from '@/router'
-import { generateRoutesFn1, generateRoutesFn2, flatMultiLevelRoutes } from '@/utils/routerHelper'
-import { store } from '../index'
-import { cloneDeep } from 'lodash-es'
+import { defineStore } from 'pinia';
+import { asyncRouterMap, constantRouterMap } from '@/router';
+import {
+  generateRoutesFn1,
+  generateRoutesFn2,
+  flatMultiLevelRoutes,
+} from '@/utils/routerHelper';
+import { store } from '../index';
+import { cloneDeep } from 'lodash-es';
 
 export interface PermissionState {
-  routers: AppRouteRecordRaw[]
-  addRouters: AppRouteRecordRaw[]
-  isAddRouters: boolean
-  menuTabRouters: AppRouteRecordRaw[]
+  routers: AppRouteRecordRaw[];
+  addRouters: AppRouteRecordRaw[];
+  isAddRouters: boolean;
+  menuTabRouters: AppRouteRecordRaw[];
 }
 
 export const usePermissionStore = defineStore({
@@ -17,41 +21,44 @@ export const usePermissionStore = defineStore({
     routers: [],
     addRouters: [],
     isAddRouters: false,
-    menuTabRouters: []
+    menuTabRouters: [],
   }),
   persist: {
-    enabled: true
+    enabled: true,
   },
   getters: {
     getRouters(): AppRouteRecordRaw[] {
-      return this.routers
+      return this.routers;
     },
     getAddRouters(): AppRouteRecordRaw[] {
-      return flatMultiLevelRoutes(cloneDeep(this.addRouters))
+      return flatMultiLevelRoutes(cloneDeep(this.addRouters));
     },
     getIsAddRouters(): boolean {
-      return this.isAddRouters
+      return this.isAddRouters;
     },
     getMenuTabRouters(): AppRouteRecordRaw[] {
-      return this.menuTabRouters
-    }
+      return this.menuTabRouters;
+    },
   },
   actions: {
     generateRoutes(
       type: 'admin' | 'test' | 'none',
       routers?: AppCustomRouteRecordRaw[] | string[]
     ): Promise<unknown> {
-      return new Promise<void>((resolve) => {
-        let routerMap: AppRouteRecordRaw[] = []
+      return new Promise<void>(resolve => {
+        let routerMap: AppRouteRecordRaw[] = [];
         if (type === 'admin') {
-          // 模拟后端过滤菜单
-          routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[])
-        } else if (type === 'test') {
           // 模拟前端过滤菜单
-          routerMap = generateRoutesFn1(cloneDeep(asyncRouterMap), routers as string[])
+          routerMap = generateRoutesFn2(routers as AppCustomRouteRecordRaw[]);
+        } else if (type === 'test') {
+          // 模拟后端过滤菜单
+          routerMap = generateRoutesFn1(
+            cloneDeep(asyncRouterMap),
+            routers as string[]
+          );
         } else {
           // 直接读取静态路由表
-          routerMap = cloneDeep(asyncRouterMap)
+          routerMap = cloneDeep(asyncRouterMap);
         }
         // 动态路由，404一定要放到最后面
         this.addRouters = routerMap.concat([
@@ -61,24 +68,24 @@ export const usePermissionStore = defineStore({
             name: '404Page',
             meta: {
               hidden: true,
-              breadcrumb: false
-            }
-          }
-        ])
+              breadcrumb: false,
+            },
+          },
+        ]);
         // 渲染菜单的所有路由
-        this.routers = cloneDeep(constantRouterMap).concat(routerMap)
-        resolve()
-      })
+        this.routers = cloneDeep(constantRouterMap).concat(routerMap);
+        resolve();
+      });
     },
     setIsAddRouters(state: boolean): void {
-      this.isAddRouters = state
+      this.isAddRouters = state;
     },
     setMenuTabRouters(routers: AppRouteRecordRaw[]): void {
-      this.menuTabRouters = routers
-    }
-  }
-})
+      this.menuTabRouters = routers;
+    },
+  },
+});
 
 export const usePermissionStoreWithOut = () => {
-  return usePermissionStore(store)
-}
+  return usePermissionStore(store);
+};

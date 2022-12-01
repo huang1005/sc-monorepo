@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { useAppStore } from '@/store/modules/app'
-import { computed } from 'vue'
-import { useDesign } from '@/hooks/web/useDesign'
+import { useAppStore } from '@/store/modules/app';
+import { computed } from 'vue';
+import { useDesign } from '@/hooks/web/useDesign';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('layout-radio-picker')
+const prefixCls = getPrefixCls('layout-radio-picker');
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
-const layout = computed(() => appStore.getLayout)
+const layout = computed(() => appStore.getLayout);
 </script>
 
 <template>
@@ -19,8 +19,8 @@ const layout = computed(() => appStore.getLayout)
         `${prefixCls}__classic`,
         'relative w-56px h-48px cursor-pointer bg-gray-300',
         {
-          'is-acitve': layout === 'classic'
-        }
+          'is-acitve': layout === 'classic',
+        },
       ]"
       @click="appStore.setLayout('classic')"
     ></div>
@@ -29,8 +29,8 @@ const layout = computed(() => appStore.getLayout)
         `${prefixCls}__top-left`,
         'relative w-56px h-48px cursor-pointer bg-gray-300',
         {
-          'is-acitve': layout === 'topLeft'
-        }
+          'is-acitve': layout === 'topLeft',
+        },
       ]"
       @click="appStore.setLayout('topLeft')"
     ></div>
@@ -39,8 +39,8 @@ const layout = computed(() => appStore.getLayout)
         `${prefixCls}__top`,
         'relative w-56px h-48px cursor-pointer bg-gray-300',
         {
-          'is-acitve': layout === 'top'
-        }
+          'is-acitve': layout === 'top',
+        },
       ]"
       @click="appStore.setLayout('top')"
     ></div>
@@ -49,8 +49,8 @@ const layout = computed(() => appStore.getLayout)
         `${prefixCls}__cut-menu`,
         'relative w-56px h-48px cursor-pointer bg-gray-300',
         {
-          'is-acitve': layout === 'cutMenu'
-        }
+          'is-acitve': layout === 'cutMenu',
+        },
       ]"
       @click="appStore.setLayout('cutMenu')"
     >

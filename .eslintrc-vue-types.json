@@ -1,0 +1,9 @@
+{
+  "globals": {
+    "ShallowRef": true,
+    "Ref": true,
+    "ComputedRef": true,
+    "PropType": true,
+    "WatchStopHandle": true
+  }
+}

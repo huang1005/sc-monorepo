@@ -1,221 +1,245 @@
 <script setup lang="ts">
-import { onMounted, watch, computed, unref, ref, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
-import type { RouteLocationNormalizedLoaded, RouterLinkProps } from 'vue-router'
-import { usePermissionStore } from '@/store/modules/permission'
-import { useTagsViewStore } from '@/store/modules/tagsView'
-import { useAppStore } from '@/store/modules/app'
-import { useI18n } from '@/hooks/web/useI18n'
-import { filterAffixTags } from './helper'
-import { ContextMenu, ContextMenuExpose } from '@/components/ContextMenu'
-import { useDesign } from '@/hooks/web/useDesign'
-import { useTemplateRefsList } from '@vueuse/core'
-import { ElScrollbar } from 'element-plus'
-import { useScrollTo } from '@/hooks/event/useScrollTo'
-const { getPrefixCls } = useDesign()
-const prefixCls = getPrefixCls('tags-view')
-const { t } = useI18n()
-const { currentRoute, push, replace } = useRouter()
-const permissionStore = usePermissionStore()
-const routers = computed(() => permissionStore.getRouters)
-const tagsViewStore = useTagsViewStore()
-const visitedViews = computed(() => tagsViewStore.getVisitedViews)
-const affixTagArr = ref<RouteLocationNormalizedLoaded[]>([])
-const appStore = useAppStore()
-const tagsViewIcon = computed(() => appStore.getTagsViewIcon)
+import { onMounted, watch, computed, unref, ref, nextTick } from 'vue';
+import { RouterLink, useRouter } from 'vue-router';
+import type {
+  RouteLocationNormalizedLoaded,
+  RouterLinkProps,
+} from 'vue-router';
+import { usePermissionStore } from '@/store/modules/permission';
+import { useTagsViewStore } from '@/store/modules/tagsView';
+import { useAppStore } from '@/store/modules/app';
+import { useI18n } from '@/hooks/web/useI18n';
+import { filterAffixTags } from './helper';
+import { ContextMenu, ContextMenuExpose } from '@/components/ContextMenu';
+import { useDesign } from '@/hooks/web/useDesign';
+import { useTemplateRefsList } from '@vueuse/core';
+import { ElScrollbar } from 'element-plus';
+import { useScrollTo } from '@/hooks/event/useScrollTo';
+import { Icon } from '@/components/Icon';
+import type { Nullable, ComponentRef } from 'share';
+
+const { getPrefixCls } = useDesign();
+const prefixCls = getPrefixCls('tags-view');
+const { t } = useI18n();
+const { currentRoute, push, replace } = useRouter();
+const permissionStore = usePermissionStore();
+const routers = computed(() => permissionStore.getRouters);
+const tagsViewStore = useTagsViewStore();
+const visitedViews = computed(() => tagsViewStore.getVisitedViews);
+const affixTagArr = ref<RouteLocationNormalizedLoaded[]>([]);
+const appStore = useAppStore();
+const tagsViewIcon = computed(() => appStore.getTagsViewIcon);
 // 初始化tag
 const initTags = () => {
-  affixTagArr.value = filterAffixTags(unref(routers))
+  affixTagArr.value = filterAffixTags(unref(routers));
   for (const tag of unref(affixTagArr)) {
     // Must have tag name
     if (tag.name) {
-      tagsViewStore.addVisitedView(tag)
+      tagsViewStore.addVisitedView(tag);
     }
   }
-}
-const selectedTag = ref<RouteLocationNormalizedLoaded>()
+};
+const selectedTag = ref<RouteLocationNormalizedLoaded>();
 // 新增tag
 const addTags = () => {
-  const { name } = unref(currentRoute)
+  const { name } = unref(currentRoute);
   if (name) {
-    selectedTag.value = unref(currentRoute)
-    tagsViewStore.addView(unref(currentRoute))
+    selectedTag.value = unref(currentRoute);
+    tagsViewStore.addView(unref(currentRoute));
   }
-  return false
-}
+  return false;
+};
 // 关闭选中的tag
 const closeSelectedTag = (view: RouteLocationNormalizedLoaded) => {
-  if (view?.meta?.affix) return
-  tagsViewStore.delView(view)
+  if (view?.meta?.affix) return;
+  tagsViewStore.delView(view);
   if (isActive(view)) {
-    toLastView()
+    toLastView();
   }
-}
+};
 // 关闭全部
 const closeAllTags = () => {
-  tagsViewStore.delAllViews()
-  toLastView()
-}
+  tagsViewStore.delAllViews();
+  toLastView();
+};
 // 关闭其他
 const closeOthersTags = () => {
-  tagsViewStore.delOthersViews(unref(selectedTag) as RouteLocationNormalizedLoaded)
-}
+  tagsViewStore.delOthersViews(
+    unref(selectedTag) as RouteLocationNormalizedLoaded
+  );
+};
 // 重新加载
 const refreshSelectedTag = async (view?: RouteLocationNormalizedLoaded) => {
-  if (!view) return
-  tagsViewStore.delCachedView()
-  const { path, query } = view
-  await nextTick()
+  if (!view) return;
+  tagsViewStore.delCachedView();
+  const { path, query } = view;
+  await nextTick();
   replace({
     path: '/redirect' + path,
-    query: query
-  })
-}
+    query: query,
+  });
+};
 // 关闭左侧
 const closeLeftTags = () => {
-  tagsViewStore.delLeftViews(unref(selectedTag) as RouteLocationNormalizedLoaded)
-}
+  tagsViewStore.delLeftViews(
+    unref(selectedTag) as RouteLocationNormalizedLoaded
+  );
+};
 // 关闭右侧
 const closeRightTags = () => {
-  tagsViewStore.delRightViews(unref(selectedTag) as RouteLocationNormalizedLoaded)
-}
+  tagsViewStore.delRightViews(
+    unref(selectedTag) as RouteLocationNormalizedLoaded
+  );
+};
 // 跳转到最后一个
 const toLastView = () => {
-  const visitedViews = tagsViewStore.getVisitedViews
-  const latestView = visitedViews.slice(-1)[0]
+  const visitedViews = tagsViewStore.getVisitedViews;
+  const latestView = visitedViews.slice(-1)[0];
   if (latestView) {
-    push(latestView)
+    push(latestView);
   } else {
     if (
       unref(currentRoute).path === permissionStore.getAddRouters[0].path ||
       unref(currentRoute).path === permissionStore.getAddRouters[0].redirect
     ) {
-      addTags()
-      return
+      addTags();
+      return;
     }
     // You can set another route
-    push(permissionStore.getAddRouters[0].path)
+    push(permissionStore.getAddRouters[0].path);
   }
-}
+};
 // 滚动到选中的tag
 const moveToCurrentTag = async () => {
-  await nextTick()
+  await nextTick();
   for (const v of unref(visitedViews)) {
     if (v.fullPath === unref(currentRoute).path) {
-      moveToTarget(v)
+      moveToTarget(v);
       if (v.fullPath !== unref(currentRoute).fullPath) {
-        tagsViewStore.updateVisitedView(unref(currentRoute))
+        tagsViewStore.updateVisitedView(unref(currentRoute));
       }
-      break
+      break;
     }
   }
-}
-const tagLinksRefs = useTemplateRefsList<RouterLinkProps>()
+};
+const tagLinksRefs = useTemplateRefsList<RouterLinkProps>();
 const moveToTarget = (currentTag: RouteLocationNormalizedLoaded) => {
-  const wrap$ = unref(scrollbarRef)?.wrap$
-  let firstTag: Nullable<RouterLinkProps> = null
-  let lastTag: Nullable<RouterLinkProps> = null
-  const tagList = unref(tagLinksRefs)
+  const wrap$ = unref(scrollbarRef)?.wrap$;
+  let firstTag: Nullable<RouterLinkProps> = null;
+  let lastTag: Nullable<RouterLinkProps> = null;
+  const tagList = unref(tagLinksRefs);
   // find first tag and last tag
   if (tagList.length > 0) {
-    firstTag = tagList[0]
-    lastTag = tagList[tagList.length - 1]
+    firstTag = tagList[0];
+    lastTag = tagList[tagList.length - 1];
   }
-  if ((firstTag?.to as RouteLocationNormalizedLoaded).fullPath === currentTag.fullPath) {
+  if (
+    (firstTag?.to as RouteLocationNormalizedLoaded).fullPath ===
+    currentTag.fullPath
+  ) {
     // 直接滚动到0的位置
     const { start } = useScrollTo({
       el: wrap$!,
       position: 'scrollLeft',
       to: 0,
-      duration: 500
-    })
-    start()
-  } else if ((lastTag?.to as RouteLocationNormalizedLoaded).fullPath === currentTag.fullPath) {
+      duration: 500,
+    });
+    start();
+  } else if (
+    (lastTag?.to as RouteLocationNormalizedLoaded).fullPath ===
+    currentTag.fullPath
+  ) {
     // 滚动到最后的位置
     const { start } = useScrollTo({
       el: wrap$!,
       position: 'scrollLeft',
       to: wrap$!.scrollWidth - wrap$!.offsetWidth,
-      duration: 500
-    })
-    start()
+      duration: 500,
+    });
+    start();
   } else {
     // find preTag and nextTag
     const currentIndex: number = tagList.findIndex(
-      (item) => (item?.to as RouteLocationNormalizedLoaded).fullPath === currentTag.fullPath
-    )
-    const tgsRefs = document.getElementsByClassName(`${prefixCls}__item`)
-    const prevTag = tgsRefs[currentIndex - 1] as HTMLElement
-    const nextTag = tgsRefs[currentIndex + 1] as HTMLElement
+      item =>
+        (item?.to as RouteLocationNormalizedLoaded).fullPath ===
+        currentTag.fullPath
+    );
+    const tgsRefs = document.getElementsByClassName(`${prefixCls}__item`);
+    const prevTag = tgsRefs[currentIndex - 1] as HTMLElement;
+    const nextTag = tgsRefs[currentIndex + 1] as HTMLElement;
     // the tag's offsetLeft after of nextTag
-    const afterNextTagOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + 4
+    const afterNextTagOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + 4;
     // the tag's offsetLeft before of prevTag
-    const beforePrevTagOffsetLeft = prevTag.offsetLeft - 4
+    const beforePrevTagOffsetLeft = prevTag.offsetLeft - 4;
     if (afterNextTagOffsetLeft > unref(scrollLeftNumber) + wrap$!.offsetWidth) {
       const { start } = useScrollTo({
         el: wrap$!,
         position: 'scrollLeft',
         to: afterNextTagOffsetLeft - wrap$!.offsetWidth,
-        duration: 500
-      })
-      start()
+        duration: 500,
+      });
+      start();
     } else if (beforePrevTagOffsetLeft < unref(scrollLeftNumber)) {
       const { start } = useScrollTo({
         el: wrap$!,
         position: 'scrollLeft',
         to: beforePrevTagOffsetLeft,
-        duration: 500
-      })
-      start()
+        duration: 500,
+      });
+      start();
     }
   }
-}
+};
 // 是否是当前tag
 const isActive = (route: RouteLocationNormalizedLoaded): boolean => {
-  return route.path === unref(currentRoute).path
-}
+  return route.path === unref(currentRoute).path;
+};
 // 所有右键菜单组件的元素
-const itemRefs = useTemplateRefsList<ComponentRef<typeof ContextMenu & ContextMenuExpose>>()
+const itemRefs =
+  useTemplateRefsList<ComponentRef<typeof ContextMenu & ContextMenuExpose>>();
 // 右键菜单装填改变的时候
-const visibleChange = (visible: boolean, tagItem: RouteLocationNormalizedLoaded) => {
+const visibleChange = (
+  visible: boolean,
+  tagItem: RouteLocationNormalizedLoaded
+) => {
   if (visible) {
     for (const v of unref(itemRefs)) {
-      const elDropdownMenuRef = v.elDropdownMenuRef
+      const elDropdownMenuRef = v.elDropdownMenuRef;
       if (tagItem.fullPath !== v.tagItem.fullPath) {
-        elDropdownMenuRef?.handleClose()
+        elDropdownMenuRef?.handleClose();
       }
     }
   }
-}
+};
 // elscroll 实例
-const scrollbarRef = ref<ComponentRef<typeof ElScrollbar>>()
+const scrollbarRef = ref<ComponentRef<typeof ElScrollbar>>();
 // 保存滚动位置
-const scrollLeftNumber = ref(0)
+const scrollLeftNumber = ref(0);
 const scroll = ({ scrollLeft }) => {
-  scrollLeftNumber.value = scrollLeft as number
-}
+  scrollLeftNumber.value = scrollLeft as number;
+};
 // 移动到某个位置
 const move = (to: number) => {
-  const wrap$ = unref(scrollbarRef)?.wrap$
+  const wrap$ = unref(scrollbarRef)?.wrap$;
   const { start } = useScrollTo({
     el: wrap$!,
     position: 'scrollLeft',
     to: unref(scrollLeftNumber) + to,
-    duration: 500
-  })
-  start()
-}
+    duration: 500,
+  });
+  start();
+};
 onMounted(() => {
-  initTags()
-  addTags()
-})
+  initTags();
+  addTags();
+});
 watch(
   () => currentRoute.value,
   () => {
-    addTags()
-    moveToCurrentTag()
+    addTags();
+    moveToCurrentTag();
   }
-)
+);
 </script>
 
 <template>
@@ -245,16 +269,16 @@ watch(
                 label: t('common.reload'),
                 disabled: selectedTag?.fullPath !== item.fullPath,
                 command: () => {
-                  refreshSelectedTag(item)
-                }
+                  refreshSelectedTag(item);
+                },
               },
               {
                 icon: 'ant-design:close-outlined',
                 label: t('common.closeTab'),
                 disabled: !!visitedViews?.length && selectedTag?.meta.affix,
                 command: () => {
-                  closeSelectedTag(item)
-                }
+                  closeSelectedTag(item);
+                },
               },
               {
                 divided: true,
@@ -265,19 +289,20 @@ watch(
                   (item.fullPath === visitedViews[0].fullPath ||
                     selectedTag?.fullPath !== item.fullPath),
                 command: () => {
-                  closeLeftTags()
-                }
+                  closeLeftTags();
+                },
               },
               {
                 icon: 'ant-design:vertical-left-outlined',
                 label: t('common.closeTheRightTab'),
                 disabled:
                   !!visitedViews?.length &&
-                  (item.fullPath === visitedViews[visitedViews.length - 1].fullPath ||
+                  (item.fullPath ===
+                    visitedViews[visitedViews.length - 1].fullPath ||
                     selectedTag?.fullPath !== item.fullPath),
                 command: () => {
-                  closeRightTags()
-                }
+                  closeRightTags();
+                },
               },
               {
                 divided: true,
@@ -285,16 +310,16 @@ watch(
                 label: t('common.closeOther'),
                 disabled: selectedTag?.fullPath !== item.fullPath,
                 command: () => {
-                  closeOthersTags()
-                }
+                  closeOthersTags();
+                },
               },
               {
                 icon: 'ant-design:line-outlined',
                 label: t('common.closeAll'),
                 command: () => {
-                  closeAllTags()
-                }
-              }
+                  closeAllTags();
+                },
+              },
             ]"
             v-for="item in visitedViews"
             :key="item.fullPath"
@@ -303,13 +328,18 @@ watch(
               `${prefixCls}__item`,
               item?.meta?.affix ? `${prefixCls}__item--affix` : '',
               {
-                'is-active': isActive(item)
-              }
+                'is-active': isActive(item),
+              },
             ]"
             @visible-change="visibleChange"
           >
             <div>
-              <router-link :ref="tagLinksRefs.set" :to="{ ...item }" custom v-slot="{ navigate }">
+              <router-link
+                :ref="tagLinksRefs.set"
+                :to="{ ...item }"
+                custom
+                v-slot="{ navigate }"
+              >
                 <div
                   @click="navigate"
                   class="h-full flex justify-center items-center whitespace-nowrap pl-15px"
@@ -367,48 +397,51 @@ watch(
           icon: 'ant-design:sync-outlined',
           label: t('common.reload'),
           command: () => {
-            refreshSelectedTag(selectedTag)
-          }
+            refreshSelectedTag(selectedTag);
+          },
         },
         {
           icon: 'ant-design:close-outlined',
           label: t('common.closeTab'),
-          disabled: !!visitedViews?.length && selectedTag?.meta.affix
+          disabled: !!visitedViews?.length && selectedTag?.meta.affix,
         },
         {
           divided: true,
           icon: 'ant-design:vertical-right-outlined',
           label: t('common.closeTheLeftTab'),
-          disabled: !!visitedViews?.length && selectedTag?.fullPath === visitedViews[0].fullPath,
+          disabled:
+            !!visitedViews?.length &&
+            selectedTag?.fullPath === visitedViews[0].fullPath,
           command: () => {
-            closeLeftTags()
-          }
+            closeLeftTags();
+          },
         },
         {
           icon: 'ant-design:vertical-left-outlined',
           label: t('common.closeTheRightTab'),
           disabled:
             !!visitedViews?.length &&
-            selectedTag?.fullPath === visitedViews[visitedViews.length - 1].fullPath,
+            selectedTag?.fullPath ===
+              visitedViews[visitedViews.length - 1].fullPath,
           command: () => {
-            closeRightTags()
-          }
+            closeRightTags();
+          },
         },
         {
           divided: true,
           icon: 'ant-design:tag-outlined',
           label: t('common.closeOther'),
           command: () => {
-            closeOthersTags()
-          }
+            closeOthersTags();
+          },
         },
         {
           icon: 'ant-design:line-outlined',
           label: t('common.closeAll'),
           command: () => {
-            closeAllTags()
-          }
-        }
+            closeAllTags();
+          },
+        },
       ]"
     >
       <span

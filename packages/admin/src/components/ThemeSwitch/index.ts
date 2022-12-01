@@ -1,3 +1,3 @@
-import ThemeSwitch from './src/ThemeSwitch.vue'
+import ThemeSwitch from './src/ThemeSwitch.vue';
 
-export { ThemeSwitch }
+export { ThemeSwitch };

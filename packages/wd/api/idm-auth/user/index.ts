@@ -8,7 +8,7 @@ import http, {
   type Response,
   genHandleFunc,
 } from 'sc-http/fetch';
-import type { UserEntity, BaseEntity } from '@ld/model';
+import type { UserEntity, BaseEntity } from '@wd/model';
 
 const PREFIX = '@@/idm-auth@@'.replace(/@/g, '');
 

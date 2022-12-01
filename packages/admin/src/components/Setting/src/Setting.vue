@@ -1,70 +1,78 @@
 <script setup lang="ts">
-import { ElDrawer, ElDivider, ElButton, ElMessage } from 'element-plus'
-import { ref, unref, computed, watch } from 'vue'
-import { useI18n } from '@/hooks/web/useI18n'
-import { ThemeSwitch } from '@/components/ThemeSwitch'
-import { colorIsDark, lighten, hexToRGB } from '@/utils/color'
-import { useCssVar } from '@vueuse/core'
-import { useAppStore } from '@/store/modules/app'
-import { trim, setCssVar } from '@/utils'
-import ColorRadioPicker from './components/ColorRadioPicker.vue'
-import InterfaceDisplay from './components/InterfaceDisplay.vue'
-import LayoutRadioPicker from './components/LayoutRadioPicker.vue'
-import { useCache } from '@/hooks/web/useCache'
-import { useClipboard } from '@vueuse/core'
-import { useDesign } from '@/hooks/web/useDesign'
+import { ElDrawer, ElDivider, ElButton, ElMessage } from 'element-plus';
+import { ref, unref, computed, watch } from 'vue';
+import { useI18n } from '@/hooks/web/useI18n';
+import { ThemeSwitch } from '@/components/ThemeSwitch';
+import { colorIsDark, lighten, hexToRGB } from '@/utils/color';
+import { useCssVar } from '@vueuse/core';
+import { useAppStore } from '@/store/modules/app';
+import { trim, setCssVar } from '@/utils';
+import ColorRadioPicker from './components/ColorRadioPicker.vue';
+import InterfaceDisplay from './components/InterfaceDisplay.vue';
+import LayoutRadioPicker from './components/LayoutRadioPicker.vue';
+import { useCache } from '@/hooks/web/useCache';
+import { useClipboard } from '@vueuse/core';
+import { useDesign } from '@/hooks/web/useDesign';
+import { Icon } from '@/components/Icon';
+import { Recordable } from 'vite-plugin-mock';
 
-const { getPrefixCls } = useDesign()
+const { getPrefixCls } = useDesign();
 
-const prefixCls = getPrefixCls('setting')
+const prefixCls = getPrefixCls('setting');
 
-const appStore = useAppStore()
+const appStore = useAppStore();
 
-const { t } = useI18n()
+const { t } = useI18n();
 
-const layout = computed(() => appStore.getLayout)
+const layout = computed(() => appStore.getLayout);
 
-const drawer = ref(false)
+const drawer = ref(false);
 
 // 主题色相关
-const systemTheme = ref(appStore.getTheme.elColorPrimary)
+const systemTheme = ref(appStore.getTheme.elColorPrimary);
 
 const setSystemTheme = (color: string) => {
-  setCssVar('--el-color-primary', color)
-  appStore.setTheme({ elColorPrimary: color })
-  const leftMenuBgColor = useCssVar('--left-menu-bg-color', document.documentElement)
-  setMenuTheme(trim(unref(leftMenuBgColor)))
-}
+  setCssVar('--el-color-primary', color);
+  appStore.setTheme({ elColorPrimary: color });
+  const leftMenuBgColor = useCssVar(
+    '--left-menu-bg-color',
+    document.documentElement
+  );
+  setMenuTheme(trim(unref(leftMenuBgColor)));
+};
 
 // 头部主题相关
-const headerTheme = ref(appStore.getTheme.topHeaderBgColor || '')
+const headerTheme = ref(appStore.getTheme.topHeaderBgColor || '');
 
 const setHeaderTheme = (color: string) => {
-  const isDarkColor = colorIsDark(color)
-  const textColor = isDarkColor ? '#fff' : 'inherit'
-  const textHoverColor = isDarkColor ? lighten(color!, 6) : '#f6f6f6'
-  const topToolBorderColor = isDarkColor ? color : '#eee'
-  setCssVar('--top-header-bg-color', color)
-  setCssVar('--top-header-text-color', textColor)
-  setCssVar('--top-header-hover-color', textHoverColor)
-  setCssVar('--top-tool-border-color', topToolBorderColor)
+  const isDarkColor = colorIsDark(color);
+  const textColor = isDarkColor ? '#fff' : 'inherit';
+  const textHoverColor = isDarkColor ? lighten(color!, 6) : '#f6f6f6';
+  const topToolBorderColor = isDarkColor ? color : '#eee';
+  setCssVar('--top-header-bg-color', color);
+  setCssVar('--top-header-text-color', textColor);
+  setCssVar('--top-header-hover-color', textHoverColor);
+  setCssVar('--top-tool-border-color', topToolBorderColor);
   appStore.setTheme({
     topHeaderBgColor: color,
     topHeaderTextColor: textColor,
     topHeaderHoverColor: textHoverColor,
-    topToolBorderColor
-  })
+    topToolBorderColor,
+  });
   if (unref(layout) === 'top' && !appStore.getIsDark) {
-    setMenuTheme(color)
+    setMenuTheme(color);
   }
-}
+};
 
 // 菜单主题相关
-const menuTheme = ref(appStore.getTheme.leftMenuBgColor || '')
+const menuTheme = ref(appStore.getTheme.leftMenuBgColor || '');
 
 const setMenuTheme = (color: string) => {
-  const primaryColor = useCssVar('--el-color-primary', document.documentElement)
-  const isDarkColor = colorIsDark(color)
+  const primaryColor = useCssVar(
+    '--el-color-primary',
+    document.documentElement
+  );
+  const isDarkColor = colorIsDark(color);
   const theme: Recordable = {
     // 左侧菜单边框颜色
     leftMenuBorderColor: isDarkColor ? 'inherit' : '#eee',
@@ -87,24 +95,24 @@ const setMenuTheme = (color: string) => {
     // logo字体颜色
     logoTitleTextColor: isDarkColor ? '#fff' : 'inherit',
     // logo边框颜色
-    logoBorderColor: isDarkColor ? color : '#eee'
-  }
-  appStore.setTheme(theme)
-  appStore.setCssVarTheme()
-}
+    logoBorderColor: isDarkColor ? color : '#eee',
+  };
+  appStore.setTheme(theme);
+  appStore.setCssVarTheme();
+};
 
 // 监听layout变化，重置一些主题色
 watch(
   () => layout.value,
-  (n) => {
+  n => {
     if (n === 'top' && !appStore.getIsDark) {
-      headerTheme.value = '#fff'
-      setHeaderTheme('#fff')
+      headerTheme.value = '#fff';
+      setHeaderTheme('#fff');
     } else {
-      setMenuTheme(unref(menuTheme))
+      setMenuTheme(unref(menuTheme));
     }
   }
-)
+);
 
 // 拷贝
 const copyConfig = async () => {
@@ -169,22 +177,22 @@ theme: {
   // 头部边框颜色
   topToolBorderColor: '${appStore.getTheme.topToolBorderColor}'
 }
-    `
-  })
-  await copy()
+    `,
+  });
+  await copy();
   if (unref(copied)) {
-    ElMessage.success(t('setting.copySuccess'))
+    ElMessage.success(t('setting.copySuccess'));
   }
-}
+};
 
 // 清空缓存
 const clear = () => {
-  const { wsCache } = useCache()
-  wsCache.delete('layout')
-  wsCache.delete('theme')
-  wsCache.delete('isDark')
-  window.location.reload()
-}
+  const { wsCache } = useCache();
+  wsCache.delete('layout');
+  wsCache.delete('theme');
+  wsCache.delete('isDark');
+  window.location.reload();
+};
 </script>
 
 <template>
@@ -222,7 +230,7 @@ const clear = () => {
           '#ee4f12',
           '#0096c7',
           '#9c27b0',
-          '#ff9800'
+          '#ff9800',
         ]"
         @change="setSystemTheme"
       />
@@ -239,7 +247,7 @@ const clear = () => {
           '#24292e',
           '#394664',
           '#009688',
-          '#383f45'
+          '#383f45',
         ]"
         @change="setHeaderTheme"
       />
@@ -257,7 +265,7 @@ const clear = () => {
             '#191b24',
             '#383f45',
             '#001628',
-            '#344058'
+            '#344058',
           ]"
           @change="setMenuTheme"
         />
@@ -270,7 +278,9 @@ const clear = () => {
 
     <ElDivider />
     <div>
-      <ElButton type="primary" class="w-full" @click="copyConfig">{{ t('setting.copy') }}</ElButton>
+      <ElButton type="primary" class="w-full" @click="copyConfig">{{
+        t('setting.copy')
+      }}</ElButton>
     </div>
     <div class="mt-5px">
       <ElButton type="danger" class="w-full" @click="clear">

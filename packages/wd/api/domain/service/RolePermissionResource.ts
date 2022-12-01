@@ -1,5 +1,5 @@
 import { Handler } from 'sc-http';
-import type { RolePermissionEntity } from '@ld/model';
+import type { RolePermissionEntity } from '@wd/model';
 import { DomainResource } from './DomainResource';
 import * as Criterias from '../query/RCriterias';
 

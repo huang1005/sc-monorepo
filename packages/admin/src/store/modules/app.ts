@@ -1,177 +1,177 @@
-import { defineStore } from 'pinia'
-import { store } from '../index'
-import { useCache } from '@/hooks/web/useCache'
-import { appModules } from '@/config/app'
-import type { AppState, LayoutType, ThemeTypes } from '@/config/app'
-import { setCssVar, humpToUnderline } from '@/utils'
-import { ElMessage } from 'element-plus'
+import { defineStore } from 'pinia';
+import { store } from '../index';
+import { useCache } from '@/hooks/web/useCache';
+import { appModules } from '@/config/app';
+import type { AppState, LayoutType, ThemeTypes } from '@/config/app';
+import { setCssVar, humpToUnderline } from '@/utils';
+import { ElMessage } from 'element-plus';
 
-const { wsCache } = useCache()
+const { wsCache } = useCache();
 
 export const useAppStore = defineStore({
   id: 'app',
   state: (): AppState => appModules,
   persist: {
-    enabled: true
+    enabled: true,
   },
   getters: {
     getBreadcrumb(): boolean {
-      return this.breadcrumb
+      return this.breadcrumb;
     },
     getBreadcrumbIcon(): boolean {
-      return this.breadcrumbIcon
+      return this.breadcrumbIcon;
     },
     getCollapse(): boolean {
-      return this.collapse
+      return this.collapse;
     },
     getUniqueOpened(): boolean {
-      return this.uniqueOpened
+      return this.uniqueOpened;
     },
     getHamburger(): boolean {
-      return this.hamburger
+      return this.hamburger;
     },
     getScreenfull(): boolean {
-      return this.screenfull
+      return this.screenfull;
     },
     getSize(): boolean {
-      return this.size
+      return this.size;
     },
     getLocale(): boolean {
-      return this.locale
+      return this.locale;
     },
     getTagsView(): boolean {
-      return this.tagsView
+      return this.tagsView;
     },
     getTagsViewIcon(): boolean {
-      return this.tagsViewIcon
+      return this.tagsViewIcon;
     },
     getLogo(): boolean {
-      return this.logo
+      return this.logo;
     },
     getFixedHeader(): boolean {
-      return this.fixedHeader
+      return this.fixedHeader;
     },
     getGreyMode(): boolean {
-      return this.greyMode
+      return this.greyMode;
     },
     getPageLoading(): boolean {
-      return this.pageLoading
+      return this.pageLoading;
     },
     getLayout(): LayoutType {
-      return this.layout
+      return this.layout;
     },
     getTitle(): string {
-      return this.title
+      return this.title;
     },
     getUserInfo(): string {
-      return this.userInfo
+      return this.userInfo;
     },
     getIsDark(): boolean {
-      return this.isDark
+      return this.isDark;
     },
     getCurrentSize(): ElememtPlusSize {
-      return this.currentSize
+      return this.currentSize;
     },
     getSizeMap(): ElememtPlusSize[] {
-      return this.sizeMap
+      return this.sizeMap;
     },
     getMobile(): boolean {
-      return this.mobile
+      return this.mobile;
     },
     getTheme(): ThemeTypes {
-      return this.theme
+      return this.theme;
     },
     getFooter(): boolean {
-      return this.footer
-    }
+      return this.footer;
+    },
   },
   actions: {
     setBreadcrumb(breadcrumb: boolean) {
-      this.breadcrumb = breadcrumb
+      this.breadcrumb = breadcrumb;
     },
     setBreadcrumbIcon(breadcrumbIcon: boolean) {
-      this.breadcrumbIcon = breadcrumbIcon
+      this.breadcrumbIcon = breadcrumbIcon;
     },
     setCollapse(collapse: boolean) {
-      this.collapse = collapse
+      this.collapse = collapse;
     },
     setUniqueOpened(uniqueOpened: boolean) {
-      this.uniqueOpened = uniqueOpened
+      this.uniqueOpened = uniqueOpened;
     },
     setHamburger(hamburger: boolean) {
-      this.hamburger = hamburger
+      this.hamburger = hamburger;
     },
     setScreenfull(screenfull: boolean) {
-      this.screenfull = screenfull
+      this.screenfull = screenfull;
     },
     setSize(size: boolean) {
-      this.size = size
+      this.size = size;
     },
     setLocale(locale: boolean) {
-      this.locale = locale
+      this.locale = locale;
     },
     setTagsView(tagsView: boolean) {
-      this.tagsView = tagsView
+      this.tagsView = tagsView;
     },
     setTagsViewIcon(tagsViewIcon: boolean) {
-      this.tagsViewIcon = tagsViewIcon
+      this.tagsViewIcon = tagsViewIcon;
     },
     setLogo(logo: boolean) {
-      this.logo = logo
+      this.logo = logo;
     },
     setFixedHeader(fixedHeader: boolean) {
-      this.fixedHeader = fixedHeader
+      this.fixedHeader = fixedHeader;
     },
     setGreyMode(greyMode: boolean) {
-      this.greyMode = greyMode
+      this.greyMode = greyMode;
     },
     setPageLoading(pageLoading: boolean) {
-      this.pageLoading = pageLoading
+      this.pageLoading = pageLoading;
     },
     setLayout(layout: LayoutType) {
       if (this.mobile && layout !== 'classic') {
-        ElMessage.warning('移动端模式下不支持切换其他布局')
-        return
+        ElMessage.warning('移动端模式下不支持切换其他布局');
+        return;
       }
-      this.layout = layout
-      wsCache.set('layout', this.layout)
+      this.layout = layout;
+      wsCache.set('layout', this.layout);
     },
     setTitle(title: string) {
-      this.title = title
+      this.title = title;
     },
     setIsDark(isDark: boolean) {
-      this.isDark = isDark
+      this.isDark = isDark;
       if (this.isDark) {
-        document.documentElement.classList.add('dark')
-        document.documentElement.classList.remove('light')
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
       } else {
-        document.documentElement.classList.add('light')
-        document.documentElement.classList.remove('dark')
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
       }
-      wsCache.set('isDark', this.isDark)
+      wsCache.set('isDark', this.isDark);
     },
     setCurrentSize(currentSize: ElememtPlusSize) {
-      this.currentSize = currentSize
-      wsCache.set('currentSize', this.currentSize)
+      this.currentSize = currentSize;
+      wsCache.set('currentSize', this.currentSize);
     },
     setMobile(mobile: boolean) {
-      this.mobile = mobile
+      this.mobile = mobile;
     },
     setTheme(theme: ThemeTypes) {
-      this.theme = Object.assign(this.theme, theme)
-      wsCache.set('theme', this.theme)
+      this.theme = Object.assign(this.theme, theme);
+      wsCache.set('theme', this.theme);
     },
     setCssVarTheme() {
       for (const key in this.theme) {
-        setCssVar(`--${humpToUnderline(key)}`, this.theme[key])
+        setCssVar(`--${humpToUnderline(key)}`, this.theme[key]);
       }
     },
     setFooter(footer: boolean) {
-      this.footer = footer
-    }
-  }
-})
+      this.footer = footer;
+    },
+  },
+});
 
 export const useAppStoreWithOut = () => {
-  return useAppStore(store)
-}
+  return useAppStore(store);
+};

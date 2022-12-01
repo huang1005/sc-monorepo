@@ -1,10 +1,10 @@
-import { createTypes, VueTypesInterface, VueTypeValidableDef } from 'vue-types'
-import { CSSProperties } from 'vue'
+import { createTypes, VueTypesInterface, VueTypeValidableDef } from 'vue-types';
+import { CSSProperties } from 'vue';
 
 // 自定义扩展vue-types
 type PropTypes = VueTypesInterface & {
-  readonly style: VueTypeValidableDef<CSSProperties>
-}
+  readonly style: VueTypeValidableDef<CSSProperties>;
+};
 
 const propTypes = createTypes({
   func: undefined,
@@ -12,8 +12,8 @@ const propTypes = createTypes({
   string: undefined,
   number: undefined,
   object: undefined,
-  integer: undefined
-}) as PropTypes
+  integer: undefined,
+}) as PropTypes;
 
 // 需要自定义扩展的类型
 // see: https://dwightjack.github.io/vue-types/advanced/extending-vue-types.html#the-extend-method
@@ -22,8 +22,8 @@ propTypes.extend([
     name: 'style',
     getter: true,
     type: [String, Object],
-    default: undefined
-  }
-])
+    default: undefined,
+  },
+]);
 
-export { propTypes }
+export { propTypes };

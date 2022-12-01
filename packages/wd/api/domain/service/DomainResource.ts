@@ -1,4 +1,4 @@
-import { BaseEntity } from '@ld/model';
+import { BaseEntity } from '@wd/model';
 import { insHttp as http, Handler, handleResult, Response } from 'sc-http';
 import { RQuery } from '../query/RQuery';
 import { UpdateItem, UpdateItems, MergeItems } from '../update/UpdateItems';
@@ -10,7 +10,7 @@ import type {
   RolePermissionEntity,
   PermissionEntity,
   OrganizationEntity,
-} from '@ld/model';
+} from '@wd/model';
 
 const PREFIX = '@@/data-domain/eo@@'.replace(/@/g, '');
 

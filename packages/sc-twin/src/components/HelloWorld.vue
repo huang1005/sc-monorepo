@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useInit, Views, Viewer3DUtils } from '@runafe/sc-three'
-import { batchEntity } from 'packages/@runafe/sc-three/types'
+import { batchEntity } from '@runafe/sc-three/types'
 import * as THREE from 'three'
 import { insHttp } from '@/api'
 
@@ -9,11 +9,10 @@ console.log(insHttp)
 insHttp
   .get({
     url: '/datapage/getRightTop',
-    data: {},
+    data: {}
   })
   .then((res) => {
     if (res.resultCode == 0) {
-      
     }
   })
 
@@ -65,7 +64,7 @@ const station = async ({ threeBase }: batchEntity) => {
     Object.values(gltf.scene).map((obj) => obj.uuid),
     Views.Front,
     eye,
-    look,
+    look
   )
   Viewer3DUtils.flyTo(eye, look, threeBase.camera, threeBase.control)
 }
@@ -73,7 +72,7 @@ const station = async ({ threeBase }: batchEntity) => {
 onMounted(() => {
   const threeBase = useThree(threeRef)
   let batchArgs: batchEntity = {
-    threeBase,
+    threeBase
   }
 
   station(batchArgs)

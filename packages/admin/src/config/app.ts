@@ -1,49 +1,49 @@
-import { useCache } from '@/hooks/web/useCache'
+import { useCache } from '@/hooks/web/useCache';
 
-const { wsCache } = useCache()
+const { wsCache } = useCache();
 
-export type LayoutType = 'classic' | 'topLeft' | 'top' | 'cutMenu'
+export type LayoutType = 'classic' | 'topLeft' | 'top' | 'cutMenu';
 
 export type ThemeTypes = {
-  elColorPrimary?: string
-  leftMenuBorderColor?: string
-  leftMenuBgColor?: string
-  leftMenuBgLightColor?: string
-  leftMenuBgActiveColor?: string
-  leftMenuCollapseBgActiveColor?: string
-  leftMenuTextColor?: string
-  leftMenuTextActiveColor?: string
-  logoTitleTextColor?: string
-  logoBorderColor?: string
-  topHeaderBgColor?: string
-  topHeaderTextColor?: string
-  topHeaderHoverColor?: string
-  topToolBorderColor?: string
-}
+  elColorPrimary?: string;
+  leftMenuBorderColor?: string;
+  leftMenuBgColor?: string;
+  leftMenuBgLightColor?: string;
+  leftMenuBgActiveColor?: string;
+  leftMenuCollapseBgActiveColor?: string;
+  leftMenuTextColor?: string;
+  leftMenuTextActiveColor?: string;
+  logoTitleTextColor?: string;
+  logoBorderColor?: string;
+  topHeaderBgColor?: string;
+  topHeaderTextColor?: string;
+  topHeaderHoverColor?: string;
+  topToolBorderColor?: string;
+};
 export interface AppState {
-  breadcrumb: boolean
-  breadcrumbIcon: boolean
-  collapse: boolean
-  uniqueOpened: boolean
-  hamburger: boolean
-  screenfull: boolean
-  size: boolean
-  locale: boolean
-  tagsView: boolean
-  tagsViewIcon: boolean
-  logo: boolean
-  fixedHeader: boolean
-  greyMode: boolean
-  pageLoading: boolean
-  layout: LayoutType
-  title: string
-  userInfo: string
-  isDark: boolean
-  currentSize: ElememtPlusSize
-  sizeMap: ElememtPlusSize[]
-  mobile: boolean
-  footer: boolean
-  theme: ThemeTypes
+  breadcrumb: boolean;
+  breadcrumbIcon: boolean;
+  collapse: boolean;
+  uniqueOpened: boolean;
+  hamburger: boolean;
+  screenfull: boolean;
+  size: boolean;
+  locale: boolean;
+  tagsView: boolean;
+  tagsViewIcon: boolean;
+  logo: boolean;
+  fixedHeader: boolean;
+  greyMode: boolean;
+  pageLoading: boolean;
+  layout: LayoutType;
+  title: string;
+  userInfo: string;
+  isDark: boolean;
+  currentSize: ElememtPlusSize;
+  sizeMap: ElememtPlusSize[];
+  mobile: boolean;
+  footer: boolean;
+  theme: ThemeTypes;
 }
 
 export const appModules: AppState = {
@@ -99,6 +99,6 @@ export const appModules: AppState = {
     // 头部悬停颜色
     topHeaderHoverColor: '#f6f6f6',
     // 头部边框颜色
-    topToolBorderColor: '#eee'
-  }
-}
+    topToolBorderColor: '#eee',
+  },
+};

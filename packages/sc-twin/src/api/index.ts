@@ -3,7 +3,7 @@ import axios from 'axios'
 import qs from 'qs'
 const instance = axios.create({
   baseURL: 'http://192.168.1.65/v4.0/digit-twin',
-  timeout: 6000,
+  timeout: 6000
 })
 export const insHttp = new InHttp({
   instance,
@@ -15,7 +15,7 @@ export const insHttp = new InHttp({
         config.paramsSerializer = {
           encode: (params: any): string => {
             return qs.stringify(params, { arrayFormat: 'repeat' })
-          },
+          }
         }
       }
       return config
@@ -28,6 +28,6 @@ export const insHttp = new InHttp({
     },
     responseInterceptorCatch(error) {
       return Promise.reject(error)
-    },
-  },
+    }
+  }
 })
